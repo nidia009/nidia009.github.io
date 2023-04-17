@@ -1,0 +1,111 @@
+<?php require_once('../Connections/drilling.html'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+mysql_select_db($database_drilling, $drilling);
+$query_cntFT = "SELECT adress, state_country, tel1, email1 FROM site1";
+$cntFT = mysql_query($query_cntFT, $drilling) or die(mysql_error());
+$row_cntFT = mysql_fetch_assoc($cntFT);
+$totalRows_cntFT = mysql_num_rows($cntFT);
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Mirrored from willberconstruction.com/library/footer.php1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Apr 2023 11:38:37 GMT -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div class="newsletter-section padMargin">
+    <div class="ns"><strong>SIGN UP FOR OUR NEWSLETTER</strong><br />
+      Stay informed with what we have been up to! </div>
+    <div class="ns2">
+      <form id="form1" name="form1" method="post" action="#">
+        <label>
+          <input type="text" name="textfield" id="textfield" placeholder="Enter or Name" required/>
+        </label>
+        <label>
+          <input type="text" name="textfield2" id="textfield2" placeholder="Enter your Email Address" required/>
+        </label>
+        <input type="submit" name="button" id="button" value="Sign Up" class="btn2"/>
+      </form>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  
+  
+  <div class="footer padMargin">
+    <div class="footCol1">
+      <div class="ftLogo"><img src="../images/logo-footer.png"/></div>
+     
+      <p>Willber Construction Ltd, we safely unlock oil and gas resources for our customers, helping them to deliver energy around the world. We are guided by our five values which serves as a reference for every action we take and every decision we make in support of safe operations. </div><br />
+    <div class="footCol2">
+    
+    
+	<div class="ftC2">
+	<span class="ftC2-Title"> Our Company </span>
+	<a href="../about-us.html">About Us</a>
+	<a href="../values-and-code-of-conduct.html">Core Values</a>
+    <a href="../sustainability.html">Sustainability</a>
+    <a href="../performance.html">Our Performance</a>
+	<a href="../fleet.html">Our Fleet</a>
+	</div>
+      
+	<div class="ftC2"><span class="ftC2-Title">Usefull Links</span>
+	<a href="../safety.html">Safety</a>
+	<a href="../managment.html">Investors</a>
+    <a href="../careers.html">Careers</a>
+    <a href="#">Privacy</a>
+	<a href="#">Cookie declaration</a> 
+	</div>
+      
+	<div class="ftC2"><span class="ftC2-Title">Our Contact</span>
+    <?php echo $row_cntFT['adress']; ?><br />
+	<?php echo $row_cntFT['state_country']; ?><br /><br />
+    <i class="fa-solid fa-envelope"></i> <?php echo $row_cntFT['email1']; ?><br />
+	<i class="fa-solid fa-phone"></i> <?php echo $row_cntFT['tel1']; ?>
+    </div>
+ 
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="copyright padMargin">© 2022. Willber Construction Ltd. An ArdlogieHoldings Company.</div>
+  <div class="clearfix"></div>
+</body>
+
+<!-- Mirrored from willberconstruction.com/library/footer.php1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Apr 2023 11:38:37 GMT -->
+</html>
+<?php
+mysql_free_result($cntFT);
+?>
